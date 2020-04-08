@@ -109,7 +109,7 @@ class TasksController extends Controller
         $validator = Validator::make($request->all(), [
             'task' => 'required|max:255',
             'deadline' => 'required',
-            'finish_date' => 'nullable|after:deadline'
+            'finish_date' => 'nullable|after_or_equal:deadline'
         ]);
 
         if ($validator->fails()) {
