@@ -18,9 +18,7 @@ class CreateTasksTable extends Migration
             $table->integer('user_id');
             $table->string('task');
             $table->date('deadline');
-            $table->date('finish_date')->nullable();
             $table->text('comment')->nullable();
-            $table->tinyinteger('status');
             $table->timestamps();
         });
     }
@@ -35,3 +33,4 @@ class CreateTasksTable extends Migration
         Schema::dropIfExists('tasks');
     }
 }
+        
