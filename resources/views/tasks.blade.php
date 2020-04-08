@@ -30,6 +30,7 @@
       </div>
     </div>
   </form>
+  
   <!-- 表示領域 -->
   @if (count($tasks) > 0)
   <div class="panel panel-default">
@@ -40,6 +41,7 @@
           <thead>
             <th>タスク</th>
             <th>締め切り</th>
+            <th>完了日</th>
             <th>コメント</th>
           </thead>
           <!-- テーブル本体 -->
@@ -51,6 +53,9 @@
               </td>
               <td class="table-text">
                 <div>{{ $task->deadline }}</div>
+              </td>
+              <td class="table-text">
+                <div>{{ $task->finish_date }}</div>
               </td>
               <td class="table-text">
                 <div>{{ $task->comment }}</div>

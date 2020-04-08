@@ -14,7 +14,12 @@
       <!-- deadline -->
       <div class="form-group">
         <label for="deadline">Deadline</label>
-        <input type="data" id="deadline" name="deadline" class="form-control" value="{{$task->deadline}}">
+        <input type="date" id="deadline" name="deadline" class="form-control" value="{{$task->deadline}}">
+      </div>
+      <!-- finish_date -->
+      <div class="form-group">
+        <label for="finish_date">Finish date</label>
+        <input type="date" id="finish_date" name="finish_date" class="form-control" value="{{$task->finish_date}}">
       </div>
       <!-- comment -->
       <div class="form-group">

@@ -64,7 +64,9 @@ class TasksController extends Controller
         $task->user_id = Auth::user()->id;
         $task->task = $request->task;
         $task->deadline = $request->deadline;
+        $task->finish_date = null;
         $task->comment = $request->comment;
+        $task->status = 0;
         $task->save();
         //ルーティング「tasks.index」にリクエスト送信
         return redirect()->route('tasks.index');
@@ -108,6 +110,7 @@ class TasksController extends Controller
         $validator = Validator::make($request->all(), [
             'task' => 'required|max:255',
             'deadline' => 'required',
+            'finish_date' => 'nullable|after:deadline'
         ]);
 
         if ($validator->fails()) {
@@ -119,7 +122,14 @@ class TasksController extends Controller
         $task = Task::find($id);
         $task->task = $request->task;
         $task->deadline = $request->deadline;
+        $task->finish_date = $request->finish_date;
         $task->comment = $request->comment;
+        if (is_null($request->finish_date)) {
+            $task->status = 0;
+        } else {
+            $task->status = 1;
+        }
+
         $task->save();
         return redirect()->route('tasks.index');
     }
