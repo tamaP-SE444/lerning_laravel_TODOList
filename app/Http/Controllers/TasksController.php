@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Task;
 use Auth;
+use Carbon\Carbon;
 
 class TasksController extends Controller
 {
@@ -28,6 +29,12 @@ class TasksController extends Controller
             $tasks = $tasks->whereNotNull('finish_date');
         } elseif ($status_for_filter == "not_finished") {
             $tasks = $tasks->whereNull('finish_date');
+        } elseif ($status_for_filter == "just_before_deadline"){
+            $now = new Carbon(Carbon::now());
+            $now_add_24hour = new Carbon(Carbon::now());
+            $now_add_24hour = $now_add_24hour->addhour(24);
+
+            $task = $tasks->whereBetween('deadline', [$now, $now_add_24hour]);
         }
         $tasks = $tasks->orderBy('deadline', 'asc')->get();
 

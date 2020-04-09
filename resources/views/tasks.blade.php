@@ -39,6 +39,7 @@
       <option value="all">全件表示</option>
       <option value="finished">完了</option>
       <option value="not_finished">未達成</option>
+      <option value="just_before_deadline">締め切り直前</option>
     </select>
     <button type="submit" class="btn btn-primary">表示</button>
   </form>
