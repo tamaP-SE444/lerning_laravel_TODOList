@@ -7,7 +7,7 @@
   <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
     @csrf
     <div  class="form-group">
-      <!-- タスク名 -->
+      <!-- タスク名 --> 
       <div class="col-sm-6">
         <label for="task" class="col-sm-3 control-label">Task</label>
         <input type="text" name="task" id="task" class="form-control">
@@ -30,6 +30,19 @@
       </div>
     </div>
   </form>
+  
+  <!-- 表示内容切り替え -->
+  <form action="{{ route('tasks.index') }}" method="GET">
+    @method('index')
+    @csrf
+    <select name="set">
+      <option value="all">全件表示</option>
+      <option value="finished">完了</option>
+      <option value="not_finished">未達成</option>
+    </select>
+    <button type="submit" class="btn btn-primary">表示</button>
+  </form>
+
   
   <!-- 表示領域 -->
   @if (count($tasks) > 0)

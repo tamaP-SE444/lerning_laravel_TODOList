@@ -18,12 +18,27 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
          */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::where('user_id', Auth::user()->id)
+
+        $set = $request->input('set');
+        
+       if ($set == "finished"){
+            $tasks = Task::where('user_id', Auth::user()->id)
+                ->whereNotNull('finish_date')
                 ->orderBy('deadline', 'asc')
                 ->get();
-        
+        } elseif ($set == "not_finished") {
+            $tasks = Task::where('user_id', Auth::user()->id)
+                ->whereNull('finish_date')
+                ->orderBy('deadline', 'asc')
+                ->get();
+        } else {
+            $tasks = Task::where('user_id', Auth::user()->id)
+                ->orderBy('deadline', 'asc')
+                ->get();
+        }
+
         return view('tasks', [
             'tasks' => $tasks
         ]);
