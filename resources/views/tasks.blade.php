@@ -35,7 +35,7 @@
   <form action="{{ route('tasks.index') }}" method="GET">
     @method('index')
     @csrf
-    <select name="set">
+    <select name="status_for_filter">
       <option value="all">全件表示</option>
       <option value="finished">完了</option>
       <option value="not_finished">未達成</option>

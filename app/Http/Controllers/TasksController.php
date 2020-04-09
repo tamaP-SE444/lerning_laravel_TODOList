@@ -21,23 +21,15 @@ class TasksController extends Controller
     public function index(Request $request)
     {
 
-        $set = $request->input('set');
+        $status_for_filter = $request->input('status_for_filter');
         
-       if ($set == "finished"){
-            $tasks = Task::where('user_id', Auth::user()->id)
-                ->whereNotNull('finish_date')
-                ->orderBy('deadline', 'asc')
-                ->get();
-        } elseif ($set == "not_finished") {
-            $tasks = Task::where('user_id', Auth::user()->id)
-                ->whereNull('finish_date')
-                ->orderBy('deadline', 'asc')
-                ->get();
-        } else {
-            $tasks = Task::where('user_id', Auth::user()->id)
-                ->orderBy('deadline', 'asc')
-                ->get();
+        $tasks = Task::where('user_id', Auth::user()->id);
+        if ($status_for_filter == "finished") {
+            $tasks = $tasks->whereNotNull('finish_date');
+        } elseif ($status_for_filter == "not_finished") {
+            $tasks = $tasks->whereNull('finish_date');
         }
+        $tasks = $tasks->orderBy('deadline', 'asc')->get();
 
         return view('tasks', [
             'tasks' => $tasks
